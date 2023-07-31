@@ -7,7 +7,7 @@ import { TUserType } from "@/types";
 type TData = {
   user: TUserType | undefined;
   token: string | undefined;
-  saveData: (userData: TUserType) => void;
+  saveData: (userData: TUserType, access_token: string) => void;
   removeData: () => void;
 };
 
@@ -24,10 +24,11 @@ export function UserProvider({ children }: { children: JSX.Element }) {
   );
   const [user, setUser] = useState<TUserType | undefined>(undefined);
 
-  const saveData = (userData: TUserType) => {
+  const saveData = (userData: TUserType, access_token: string) => {
     setUser(userData);
     localStorage.setItem("user_data", JSON.stringify(userData));
-    setToken(Cookies.get("access_token"));
+    Cookies.set("access_token", access_token);
+    setToken(access_token);
   };
 
   const removeData = async () => {

@@ -36,7 +36,8 @@ const Login = ({ changeModal }: IProps) => {
         );
 
         //@ts-ignore
-        saveData(res.data);
+        const { info, access_token } = res.data;
+        saveData(info, access_token);
         changeModal(null);
         removePreventScroll();
       } catch (error) {

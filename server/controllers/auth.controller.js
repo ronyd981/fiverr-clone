@@ -58,7 +58,7 @@ export const login = async (req, res, next) => {
     res
       .cookie("access_token", token, { httpOnly: false })
       .status(200)
-      .send(info);
+      .send({ info, access_token: token });
   } catch (error) {
     next(createError(500, "Something went wrong, please try again"));
   }
