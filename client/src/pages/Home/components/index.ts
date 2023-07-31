@@ -1,0 +1,9 @@
+export { default as Banner } from "./Banner";
+export { default as Business } from "./Business";
+export { default as Guides } from "./Guides";
+export { default as InspiringWork } from "./InspiringWork";
+export { default as LogoMaker } from "./LogoMaker";
+export { default as MainContent } from "./MainContent";
+export { default as Opinions } from "./Opinions";
+export { default as Tips } from "./Tips";
+export { default as Tools } from "./Tools";

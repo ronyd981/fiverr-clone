@@ -1,0 +1,21 @@
+export type TGigType = {
+  cat: string;
+  cover: string;
+  createdAt: string;
+  deliveryTime: number;
+  desc: string;
+  features: Array<string>;
+  images: Array<string>;
+  price: number;
+  revisionNumber: number;
+  sales: number;
+  shortDesc: string;
+  shortTitle: string;
+  starNumber: number;
+  title: string;
+  totalStars: number;
+  updatedAt: string;
+  userId: string;
+  __v: 0;
+  _id: string;
+};
