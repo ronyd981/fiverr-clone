@@ -19,7 +19,7 @@ const TableContent = () => {
       newRequest({
         method: "get",
         url: `/conversations/${userId}`,
-        headers: { Authorization: `Bearer ${token}`, "x-access-token": token },
+        headers: { Authorization: `Bearer ${token}` },
       }).then((res) => res.data),
     enabled: !!userId,
   });
@@ -29,7 +29,7 @@ const TableContent = () => {
       return newRequest({
         method: "put",
         url: `/conversations/${id}`,
-        headers: { Authorization: `Bearer ${token}`, "x-access-token": token },
+        headers: { Authorization: `Bearer ${token}` },
       });
     },
     onSuccess: () => {

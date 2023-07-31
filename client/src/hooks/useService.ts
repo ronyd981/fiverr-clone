@@ -11,7 +11,8 @@ export const useService = () => {
   const serviceCall = async (
     allData: Object,
     method: string,
-    apiCall: string
+    apiCall: string,
+    hasToken?: boolean
   ) => {
     let res;
     try {
