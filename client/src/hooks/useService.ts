@@ -22,7 +22,7 @@ export const useService = () => {
         method,
         url: apiCall,
         data: allData,
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}`, "x-access-token": token },
       });
     } catch (error) {
       //@ts-ignore
