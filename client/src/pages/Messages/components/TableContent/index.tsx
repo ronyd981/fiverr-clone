@@ -8,7 +8,7 @@ import { TConversationType } from "@/types";
 import { UserContext } from "@/context";
 
 const TableContent = () => {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const userId = user?._id;
 
   const queryClient = useQueryClient();
@@ -16,13 +16,21 @@ const TableContent = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      newRequest.get(`/conversations/${userId}`).then((res) => res.data),
+      newRequest({
+        method: "get",
+        url: `/conversations/${userId}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => res.data),
     enabled: !!userId,
   });
 
   const mutation = useMutation({
     mutationFn: (id: string) => {
-      return newRequest.put(`/conversations/${id}`);
+      return newRequest({
+        method: "put",
+        url: `/conversations/${id}`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);
