@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { UserContext } from "@/context";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { newRequest } from "@/utils";
@@ -16,6 +18,7 @@ interface IMessageObject {
 const Message = () => {
   const { id } = useParams();
   const messageId = id;
+  const { token } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -25,7 +28,11 @@ const Message = () => {
     queryKey: ["message"],
     queryFn: async () => {
       try {
-        let res = await newRequest.get(`/messages/${messageId}`);
+        let res = await newRequest({
+          method: "get",
+          url: `/messages/${messageId}`,
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         return res.data as Array<TMessageType>;
       } catch (error) {
@@ -37,7 +44,12 @@ const Message = () => {
 
   const mutation = useMutation({
     mutationFn: (message: IMessageObject) => {
-      return newRequest.post(`/messages`, message);
+      return newRequest({
+        method: "post",
+        url: "/messages",
+        headers: { Authorization: `Bearer ${token}` },
+        data: message,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["message"]);

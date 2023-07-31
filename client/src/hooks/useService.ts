@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { newRequest } from "@/utils";
+import { UserContext } from "@/context";
 
 export const useService = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const { token } = useContext(UserContext);
 
   const serviceCall = async (
     allData: Object,
@@ -19,6 +22,7 @@ export const useService = () => {
         method,
         url: apiCall,
         data: allData,
+        headers: { Authorization: `Bearer ${token}` },
       });
     } catch (error) {
       //@ts-ignore
