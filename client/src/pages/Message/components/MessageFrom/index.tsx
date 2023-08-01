@@ -10,8 +10,6 @@ const MessaFrom = () => {
     "
     >
       <h6 className="text-xs text-primaryText">Messages</h6>
-      <span className="text-xs text-primaryText">{">"}</span>
-      <span className="text-xs text-primaryText">John Doe</span>
     </div>
   );
 };

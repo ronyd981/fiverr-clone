@@ -1,4 +1,6 @@
+import { useZorm } from "react-zorm";
 import { useContext } from "react";
+import SearchSchema from "./SearchSchema";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import { ModalViewsContext, UserContext } from "@/context";
@@ -25,6 +27,16 @@ const Navbar = () => {
   const logout = () => {
     removeData();
   };
+
+  const zorm = useZorm("search3", SearchSchema, {
+    async onValidSubmit(e) {
+      e.preventDefault();
+
+      let search = e.data.search;
+
+      navigate(`/cat/any?search=${search}`);
+    },
+  });
 
   return (
     <header
@@ -85,10 +97,11 @@ const Navbar = () => {
             }
           `}
           >
-            <div
+            <form
               className="
               w-full h-full flex 
             "
+              ref={zorm.ref}
             >
               <input
                 type="text"
@@ -97,16 +110,18 @@ const Navbar = () => {
                 md:w-[calc(100%-48px)] md:rounded-r-none md:border-r-none
               "
                 placeholder="Find services"
+                name={zorm.fields.search()}
+                autoComplete="off"
               />
-              <div
+              <button
                 className="
                 hidden
                 w-12 h-full md:flex items-center justify-center rounded-r-md bg-[#222325]
               "
               >
                 <AiOutlineSearch className="text-xl text-white" />
-              </div>
-            </div>
+              </button>
+            </form>
           </div>
           <nav
             className="

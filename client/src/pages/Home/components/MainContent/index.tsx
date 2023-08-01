@@ -1,9 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useZorm } from "react-zorm";
+import SearchSchema from "./SearchSchema";
 
 // Components
 import Carousel from "./Carousel";
 
 const MainContent = () => {
+  const navigate = useNavigate();
+
+  const zorm = useZorm("search", SearchSchema, {
+    async onValidSubmit(e) {
+      e.preventDefault();
+
+      let search = e.data.search;
+
+      navigate(`/cat/any?search=${search}`);
+    },
+  });
+
   return (
     <div
       className="
@@ -39,11 +54,12 @@ const MainContent = () => {
               right away
             </h1>
           </div>
-          <div
+          <form
             className="
-              w-full h-10 flex
-              md:w-[520px]
-            "
+            w-full h-10 flex
+            md:w-[520px]
+          "
+            ref={zorm.ref}
           >
             <input
               type="text"
@@ -52,15 +68,17 @@ const MainContent = () => {
               rounded-r-none border-r-none
             "
               placeholder="Search for any device..."
+              name={zorm.fields.search()}
+              autoComplete="off"
             />
-            <div
+            <button
               className="
               w-12 h-full flex items-center justify-center rounded-r-md bg-primaryGreen
             "
             >
               <AiOutlineSearch className="text-xl text-white" />
-            </div>
-          </div>
+            </button>
+          </form>
           <div
             className="
             hidden text-white

@@ -21,7 +21,7 @@ const Gig = () => {
     queryFn: () =>
       newRequest
         .get(
-          `/gigs?search=${search}${
+          `/gigs?${search}${
             minRef.current?.value ? "&min=" + minRef.current.value : ""
           }${
             maxRef.current?.value ? "&max=" + maxRef.current.value : ""

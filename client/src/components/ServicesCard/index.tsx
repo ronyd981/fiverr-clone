@@ -72,7 +72,7 @@ const ServicesCard = () => {
             >
               <div
                 className="
-                w-full h-80 overflow-hidden rounded-md
+                w-full h-80 overflow-hidden rounded-md bg-gray-200
               "
                 key={info.id}
               >

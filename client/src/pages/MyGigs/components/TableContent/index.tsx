@@ -7,7 +7,7 @@ import { newRequest } from "@/utils";
 import { TGigType } from "@/types";
 
 const TableContent = () => {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
 
   const id = user?._id;
 
@@ -16,13 +16,22 @@ const TableContent = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["userGigs"],
     queryFn: () =>
-      newRequest.get(`/gigs/?userId=${id}`).then((res) => res.data),
+      newRequest({
+        method: "get",
+        url: `/gigs/?userId=${id}`,
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => res.data),
+    // })
     enabled: !!id,
   });
 
   const mutation = useMutation({
     mutationFn: (id: string) => {
-      return newRequest.delete(`/gigs/${id}`);
+      return newRequest({
+        method: "delete",
+        url: `/gigs/${id}`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["userGigs"]);

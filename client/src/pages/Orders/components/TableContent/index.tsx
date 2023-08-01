@@ -8,7 +8,7 @@ import { TOrderType } from "@/types";
 import { UserContext } from "@/context";
 
 const TableContent = () => {
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
 
   const userId = user?._id;
 
@@ -16,7 +16,12 @@ const TableContent = () => {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
-    queryFn: () => newRequest.get(`/orders`).then((res) => res.data),
+    queryFn: () =>
+      newRequest({
+        method: "get",
+        url: "/orders",
+        headers: { Authorization: `Bearer ${token}` },
+      }).then((res) => res.data),
     enabled: !!userId,
   });
 
@@ -24,9 +29,11 @@ const TableContent = () => {
     const conversationId = sellerId + buyerId;
 
     try {
-      const res = await newRequest.get(
-        `/conversations/single/${conversationId}`
-      );
+      const res = await newRequest({
+        method: "get",
+        url: `/conversations/single/${conversationId}`,
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       navigate(`/messages/${res.data[0].id}`);
     } catch (error) {
@@ -84,9 +91,6 @@ const TableContent = () => {
                 <th scope="col" className="px-6 py-3">
                   Price
                 </th>
-                {/* <th scope="col" className="px-6 py-3">
-                  {user?.isSeller ? "Buyer" : "Seller"}
-                </th> */}
                 <th scope="col" className="px-6 py-3">
                   Contact
                 </th>

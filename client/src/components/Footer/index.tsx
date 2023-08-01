@@ -1,12 +1,18 @@
-import { AiOutlineTwitter, AiFillLinkedin } from "react-icons/ai";
-import { BsFacebook, BsPinterest, BsInstagram } from "react-icons/bs";
+import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
-import "./styles.css";
-
-import { Categories, Data } from "./data";
+import { Data } from "./data";
 
 const Footer = () => {
+  const [selected, setSelected] = useState<number | null>(null);
+
+  const onListSelectet = (id: number) => {
+    if (screen.width > 640) return setSelected(null);
+    if (id === selected) return setSelected(null);
+
+    setSelected(id);
+  };
+
   return (
     <footer
       className="
@@ -24,81 +30,45 @@ const Footer = () => {
       >
         {Data.map((data) => (
           <div className="w-full" key={data.id}>
-            <ul className="flex flex-col gap-2.5">
-              <li className="mb-1">
-                {/* <input type="checkbox" id={`check${data.id}`} /> */}
-                <label
+            <ul
+              className={`
+              grid grid-rows-[0fr] gap-2.5 p-4 transition-[grid-template-rows_200ms] relative
+              ${selected === data.id && "grid-rows-[1fr]"}
+            `}
+            >
+              <li
+                className="
+                w-full h-8 flex items-center justify-between absolute cursor-pointer px-4
+                sm:cursor-auto
+                "
+                onClick={() => onListSelectet(data.id)}
+              >
+                <h6 className="text-primaryTitle font-bold">{data.title}</h6>
+                <IoIosArrowDown
                   className={`
-                  w-full flex items-center justify-between gap-2 cursor-pointer
-                  sm:cursor-auto
-                `}
-                  htmlFor={`check${data.id}`}
-                >
-                  <h6 className="text-primaryTitle font-bold">{data.title}</h6>
-                  <IoIosArrowDown
-                    className={`
                     text-xl text-gray-500
                     sm:hidden
                   `}
-                  />
-                </label>
+                />
               </li>
-              {data.list.map((value, index) => (
-                <li className="text-primaryText" key={index}>
-                  {value}
-                </li>
-              ))}
+              <div
+                className={`
+                flex flex-col gap-2.5 overflow-hidden
+                sm:overflow-visible sm:mt-6
+                ${selected === data.id && "mt-6"}
+              `}
+              >
+                {data.list.map((value, index) => (
+                  <li className="text-primaryText" key={index}>
+                    {value}
+                  </li>
+                ))}
+              </div>
             </ul>
           </div>
         ))}
       </div>
     </footer>
-    // <div
-    //   className="
-    //   w-[90%] flex flex-col gap-6 mx-auto py-16 relative border-t
-    //   sm:grid-cols-3
-    //   md:grid-cols-5
-    //   lg:w-[95%]
-    //   2xl:w-[1400px]
-    //   "
-    // >
-    //   <div className="flex flex-col gap-2.5">
-    //     <label
-    //       className={`
-    //         w-full flex items-center justify-between gap-2 cursor-pointer test
-    //       `}
-    //       htmlFor="check"
-    //     >
-    //       <h6 className="text-primaryTitle font-bold">Titulo</h6>
-    //       <IoIosArrowDown
-    //         className={`
-    //           text-xl text-gray-500 arrow
-    //         `}
-    //       />
-    //     </label>
-    //     <input type="checkbox" className="hidden" id="check" />
-    //     <div className="wrapper">
-    //       <ul className="expandable">
-    //         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
-    //         distinctio cupiditate ab nobis, nesciunt maiores. Saepe beatae illum
-    //         nam perspiciatis explicabo, quos earum eligendi, hic tenetur maiores
-    //         exercitationem doloribus. Accusantium. Lorem ipsum dolor sit amet
-    //         consectetur adipisicing elit. Iure distinctio cupiditate ab nobis,
-    //         nesciunt maiores. Saepe beatae illum nam perspiciatis explicabo,
-    //         quos earum eligendi, hic tenetur maiores exercitationem doloribus.
-    //         Accusantium. Lorem ipsum dolor sit amet consectetur adipisicing
-    //         elit. Iure distinctio cupiditate ab nobis, nesciunt maiores. Saepe
-    //         beatae illum nam perspiciatis explicabo, quos earum eligendi, hic
-    //         tenetur maiores exercitationem doloribus. Accusantium.
-    //         <li className="text-primaryText">lorem 1</li>
-    //         <li className="text-primaryText">lorem 1</li>
-    //         <li className="text-primaryText">lorem 1</li>
-    //         <li className="text-primaryText">lorem 1</li>
-    //       </ul>
-    //     </div>
-    //   </div>
-    //   <p>Ahora otra cosa</p>
-    // </div>
   );
 };
 
