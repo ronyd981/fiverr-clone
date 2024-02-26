@@ -5,11 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
-    "vercel-build": "echo Test"
+    "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "test",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
