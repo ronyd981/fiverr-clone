@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: true,
-    credentials: false,
+    origin: process.env.URL || true,
+    credentials: true,
   })
 );
 
