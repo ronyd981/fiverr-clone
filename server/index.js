@@ -31,7 +31,6 @@ const connectToMongo = async () => {
     await mongoose.connect(process.env.MONGO);
     console.log("connected to mongodb");
   } catch (error) {
-    // handleError(error);
     console.log(error);
   }
 };
