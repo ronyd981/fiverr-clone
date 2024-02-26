@@ -37,6 +37,9 @@ const connectToMongo = async () => {
 app.get("/api/test", (req, res) => {
   res.send("Aja");
 });
+app.get("/", (req, res) => {
+  res.send("Inicio");
+});
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/conversations", conversationRoute);
