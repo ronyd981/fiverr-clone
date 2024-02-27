@@ -12,5 +12,12 @@
         }
       ]
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "./index.js",
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "UPDATE"]
+    }
   ]
 }
