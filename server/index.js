@@ -38,7 +38,7 @@ app.get("/api/test", (req, res) => {
   res.send("Aja");
 });
 app.get("/", (req, res) => {
-  res.send("Inicios");
+  res.send("Folder");
 });
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
