@@ -20,13 +20,14 @@ dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-const corsConfig = {
-  origin: process.env.URL || true,
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-};
-app.use(cors(corsConfig));
-app.options(cors(corsConfig));
+// const corsConfig = {
+//   origin: process.env.URL || true,
+//   credentials: true,
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+// };
+// app.use(cors(corsConfig));
+// app.options(cors(corsConfig));
+app.use(cors());
 
 const connectToMongo = async () => {
   try {
