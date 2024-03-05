@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsConfig = {
-  origin: "*",
+  origin: process.env.URL || true,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
 };
