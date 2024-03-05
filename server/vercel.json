@@ -1,13 +1,6 @@
 {
   "version": 2,
   "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -19,7 +12,7 @@
         },
         {
           "key": "Access-Control-Allow-Methods",
-          "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+          "value": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
         }
       ]
     }
